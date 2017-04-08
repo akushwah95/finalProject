@@ -1,0 +1,91 @@
+body {
+	background-repeat: no-repeat;
+	background-image: url(/static/images/ec-wallpaper.jpg);
+}
+
+.header {
+	width: auto;
+	height: 90px;
+	background-color: black;
+
+	background: rgba(122, 122, 122, 0.5);
+}
+
+.navbar-inverse {
+	background: rgba( 0, 0, 0, 0.8);
+	position: relative;
+	top: 40px;
+	border: none;
+	border-radius: 2px;
+}
+
+input {
+	position: relative;
+	min-width: 350px;
+	height: 40px;
+	top: 370px;
+	left: 470px;
+	text-align: center;
+	background: rgba(180, 180, 180, 0.5);
+	font-size: 20px;
+	color: white;
+}
+
+.inputTag {
+	position: relative;
+	min-width: 350px;
+	height: 40px;
+	top: 370px;
+	left: 470px;
+	text-align: center;
+	background: rgba(180, 180, 180, 0.5);
+	font-size: 20px;
+	color: white;
+
+}
+
+.mbody {
+	width: auto;
+	position: relative;
+	min-height: 700px;
+	/*background-color: lavender;*/
+}
+
+
+a {
+	font-size: 20px;
+	color: #fff;
+}
+
+.semi-transparent-button {
+	position: relative;
+	top: 400px; 
+	left: center;
+	font-size: 30px;
+	font-family: anivers;
+	display: block;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 8px;
+	max-width: 350px;
+	background: #fff; /* fallback color for old browsers */
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 8px;
+	color: rgb( 50, 50, 50);
+	text-align: center;
+	text-decoration: none;
+	letter-spacing: 1px;
+	transition: all 0.3s ease-out;
+}
+
+footer {
+	width: auto;
+	min-height: 100px;
+}
+
+.footer-bottom {
+	color: white;
+	background: rgba( 0, 0, 0, 0.8);
+	min-height: 100px;
+	width: auto;
+}

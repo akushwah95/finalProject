@@ -1,0 +1,6 @@
+from django.contrib import admin
+from smartEvm.models import User, Vote, Party_Name
+
+admin.site.register(User)
+admin.site.register(Vote)
+admin.site.register(Party_Name)

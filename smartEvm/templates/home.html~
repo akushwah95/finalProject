@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Smart Voting Machine</title>
+	<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+</head>
+<body style="background-color: #f6f6f6 ">
+	<nav class="navbar navbar-inverse">
+		
+	</nav>
+</body>
+</html>

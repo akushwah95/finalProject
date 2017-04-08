@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smart Voting Machine</title>
+	
+</head>
+<body>
+	<form action="enroll" method="POST">
+		{% csrf_token %}
+		<label for="name">Name : </label>
+		<input type="text" name="name" > <br>
+
+		<label for="father_name">Father's Name : </label>
+		<input type="text" name="father_name" > <br>
+
+		<label for="mother_name">Mother's Name : </label>
+		<input type="text" name="mother_name" > <br>
+
+		<label for="voter_id">Voter ID : </label>
+		<input type="text" name="voter_id" > <br>
+
+		<label for="age">Age : </label>
+		<input type="number" name="age" min = 18 max = 150> <br>
+
+		<label for="mobile_number">Mobile Number: </label>
+		<input type="text" name="mobile_number" pattern="(7|8|9)[0-9]{9}"> <br>
+
+		<label for="hashes">Fingerprint ID : </label>
+		<input type="text" name="hashes" readonly="" value="{{hashes}}"> <br>
+
+		<button>Submit</button>
+		
+	</form>
+</body>
+</html>
