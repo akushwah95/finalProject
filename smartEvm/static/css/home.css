@@ -7,7 +7,6 @@ body {
 	width: auto;
 	height: 90px;
 	background-color: black;
-
 	background: rgba(122, 122, 122, 0.5);
 }
 
@@ -20,35 +19,18 @@ body {
 }
 
 input {
-	position: relative;
 	min-width: 350px;
 	height: 40px;
-	top: 370px;
-	left: 470px;
 	text-align: center;
 	background: rgba(180, 180, 180, 0.5);
 	font-size: 20px;
 	color: white;
-}
-
-.inputTag {
-	position: relative;
-	min-width: 350px;
-	height: 40px;
-	top: 370px;
-	left: 470px;
-	text-align: center;
-	background: rgba(180, 180, 180, 0.5);
-	font-size: 20px;
-	color: white;
-
 }
 
 .mbody {
 	width: auto;
 	position: relative;
-	min-height: 700px;
-	/*background-color: lavender;*/
+	min-height: 500px;
 }
 
 
@@ -78,14 +60,12 @@ a {
 	transition: all 0.3s ease-out;
 }
 
-footer {
-	width: auto;
-	min-height: 100px;
-}
-
 .footer-bottom {
 	color: white;
+	position: absolute;
+	bottom: 0;
 	background: rgba( 0, 0, 0, 0.8);
 	min-height: 100px;
-	width: auto;
+	width: auto;	
+	min-width: 1300px;
 }

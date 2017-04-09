@@ -13,20 +13,24 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
 	return render(request, 'home.html')
-	
+
+#about tab
 def about(request):
 	return render(request, 'about.html')
-	
+
+#contact tab	
 def contact(request):
 	return render(request, 'contact.html')
-	
+
+#authentication tab	
 def authentication(request):
 	return render(request, 'authentication.html')
-	
+
+#enrollment tab	
 def enrollment(request):
 	return render(request, 'enrollment.html')
 
-
+#storing the vote
 def vote(request):
 	if request.method == "POST":
 		form = VoteForm(request.POST)
@@ -41,7 +45,8 @@ def vote(request):
 		vote_obj.save()
 		
 		return render(request, 'confirmation.html', { 'voted_now' : True, 'msg' : 'You have successfully voted.'})
-	
+
+#initiate sensor for authentication	
 def auth(request):
 	try:
 		f = PyFingerprint('/dev/ttyUSB0', 57600, 0xFFFFFFFF, 0x00000000)
@@ -50,7 +55,7 @@ def auth(request):
 			raise ValueError('The given fingerprint sensor password is wrong!')
 			
 	except Exception as e:
-		exit(1)
+		return render(request, 'confirmation.html', { 'sensor_ni' : True, 'msg' : 'Fingerprint sensor could not be initialized.'})
 		
 	try:
 		while ( f.readImage() == False ):
@@ -64,7 +69,7 @@ def auth(request):
 		accuracyScore = result[1]
 		
 		if ( positionNumber == -1 ):
-			return render(request, 'confirmation.html', {'invalid_voter': True, 'msg': 'Voter Data Not Present in the Database'} )		
+			return render(request, 'confirmation.html', {'invalid_voter': True, 'msg': 'Voter data not present in the database'} )		
 			
 		f.loadTemplate(positionNumber, 0x01)
 		
@@ -73,7 +78,7 @@ def auth(request):
 		hashVal = hashlib.sha256(characterics).hexdigest()
 		
 	except Exception as e:
-		return render(request, 'confirmation.html', {'msg': 'Unable to Process your Fingerprint Please Try again Later'} )
+		return render(request, 'confirmation.html', { 'sensor_ni' : True, 'msg': 'Unable to process your fingerprint. Please Try again.'} )
 	
 	print "hashVal :- " + hashVal
 	all_obj = User.objects.all()
@@ -89,22 +94,24 @@ def auth(request):
 	temp = unicode(hashVal)
 	print temp
 	print type(unicode(hashVal))
+	
 	try:
 		obj = User.objects.get(hashes = temp)
+		
 	except ObjectDoesNotExist as invalid_user:
 		return render(request, 'confirmation.html', {'invalid_voter': True, 'msg': 'Voter Data Not Present in the Database'} )
+	
 	try:
 		vote_obj = Vote.objects.get(hashes = temp)
+		
 		if vote_obj :
-			return render(request, 'confirmation.html', { 'has_voted': True, 'msg': 'Sorry %s , You have already voted to %s' % (obj.name, vote_obj.party_id)} )
+			return render(request, 'confirmation.html', { 'has_voted': True, 'msg': 'Sorry %s , You have already voted to %s' % (obj.name, vote_obj.party_name)} )
+	
 	except ObjectDoesNotExist as valid_voter:
 		print "Valid Voter"
-		#obj = get_object_or_404(Users, hashes = hashVal)
-		print "obj : " + str(obj)
 		return render(request, 'vote.html', {'object': obj} )
-		#obj = Users.objects.all().filter(hashes__contains = "4ebfa8dc1efa8f043946c44197b22296c2fb00f79ee32ecd950f3a1554367d8")
 
-
+#initiate sensor for enrollment
 def pre_enroll(request):
 	try:
 		f = PyFingerprint('/dev/ttyUSB0', 57600, 0xFFFFFFFF, 0x00000000)
@@ -112,12 +119,7 @@ def pre_enroll(request):
 			raise ValueError('The given fingerprint sensor password is wrong!')
 
 	except Exception as e:
-		print('The fingerprint sensor could not be initialized!')
-		print('Exception message: ' + str(e))
-		exit(1)
-
-	## Gets some sensor information
-	print('Currently used templates: ' + str(f.getTemplateCount()) +'/'+ str(f.getStorageCapacity()))
+		return render(request, 'confirmation.html', { 'sensor_ni' : True, 'msg' : 'Fingerprint sensor could not be initialized.'})
 
 	## Tries to enroll new finger
 	try:
@@ -135,39 +137,35 @@ def pre_enroll(request):
 		positionNumber = result[0]
 		characterics = str(f.downloadCharacteristics(0x01))
 		hashes = hashlib.sha256(characterics).hexdigest()
+		
 		if ( positionNumber >= 0 ):
 			print('Template already exists at position #' + str(positionNumber))
 			obj = User.objects.get(hashes = unicode(hashes))
-			exit(0)
+			return render(request, 'confirmation.html', {'voter_present': True, 'msg': '%s Voter already enrolled in the database.' % obj.name} )
+		
 		print('Remove finger...')
 		time.sleep(2)
 
 		print('Waiting for same finger again...')
 
-		## Wait that finger is read again
 		while ( f.readImage() == False ):
 			pass
 
-		## Converts read image to characteristics and stores it in charbuffer 2
 		f.convertImage(0x02)
 
-		## Compares the charbuffers and creates a template
 		if f.compareCharacteristics() != 0:
 			f.createTemplate()
 			characterics = str(f.downloadCharacteristics(0x01))
 			hashes = hashlib.sha256(characterics).hexdigest()
-			print('Finger enrolled successfully!')
 			positionNumber = f.storeTemplate()
 			print('New template position #' + str(positionNumber))
 			return render(request, 'enroll.html', {'hashes': hashes} )
 		else:
-			print('Fingerprints do not match')
-			exit(1)
+			return render(request, 'confirmation.html', {'finger_not_matched': True, 'msg': 'Fingerprint not matched. Please try again.'} )
 	except Exception as e:
-		print('Operation failed!')
-		print('Exception message: ' + str(e))
-		exit(1)
+		return render(request, 'confirmation.html', {'enroll_failed': True, 'msg': 'Unable to enroll the voter. Please try again.'} )
 
+#enroll the user
 def enroll(request):
 	if request.method == "POST":
 		form = VoteForm(request.POST)	
@@ -181,6 +179,5 @@ def enroll(request):
 
 	obj = User(voter_id=voter_id, name=name , age=age , father_name=father_name, mother_name=mother_name, mobile_number=mobile_number, 					hashes=hashes)
 	obj.save()
-	return render(request, 'confirmation.html', {'stored': True, 'msg': 'Voter Data Stored in the Database'} )
-		
 	
+	return render(request, 'confirmation.html', {'stored': True, 'msg': 'Voter Data Stored in the Database'} )	

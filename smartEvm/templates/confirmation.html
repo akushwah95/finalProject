@@ -2,13 +2,19 @@
 <html> 
 	<head>
 		<title>Smart Voting Machine</title>
-		
+
 		<script src="/static/js/jquery-2.2.4.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>	
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		
 		<style type="text/css">
+
+			body {
+				padding-top: 160px;
+				background-color: rgba(0, 0, 0, 0.8);
+			}
+
 			.semi-transparent-button {
 				position: relative;
 				top: 300px;
@@ -29,29 +35,95 @@
 				letter-spacing: 1px;
 				transition: all 0.3s ease-out;
 			}
+
+			.alert_msg_div {
+				width: 500px;
+				height: 250px;
+				border: solid 1px white;
+				border-radius: 4px;
+				background-color: rgba(200,200,200,0.9);
+			}
+
+			.msg_body {
+				font-family: Times, serif;
+				font-size: 22px;
+
+			}
 		</style>
 	</head>
-	<body style="background-color: rgb(190, 190, 190);"> 
-		{% if voted_now %}
-			<div>
-				{{ msg }}
-			</div>
-		{% endif %}
+	<body> 
+		<center>
+			<div class="alert_msg_div">
+				<div style="background-color: white; width: 500px; height: 40px; font-family: Times, serif; font-size: 30px;"><strong>ALERT MESSAGE</strong></div>
 
-		{% if invalid_voter %}
-			<div>
-				{{ msg }}
+				<div class="msg_body">
+					{% if voted_now %}
+						<div class="alert alert-success">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if sensor_ni %}
+						<div class="alert alert-info">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if invalid_voter %}
+						<div class="alert alert-info">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if has_voted %}
+						<div class="alert alert-danger">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if voter_present %}
+						<div class="alert alert-info">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if finger_not_matched %}
+						<div class="alert alert-info">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if enroll_failed %}
+						<div class="alert alert-success">
+							{{ msg }}
+						</div>
+					{% endif %}
+
+					{% if stored %}
+						<div class="alert alert-success">
+							{{ msg }}
+						</div>
+					{% endif %}
+				</div>
+
 			</div>
-		{% endif %}
-		{% if has_voted %}
-			<div>
-				{{ msg }}
-			</div>
-		{% endif %}
-		{% if stored %}
-			<div>
-				{{ msg }}
-			</div>
-		{% endif %}
+		</center>
+		<div>
+			<footer style="position: absolute; bottom: 0;">
+			    <div class="footer-bottom">
+			        <div class="container-fluid">
+			            <p class="pull-right"> Copyright © Smart EVM Team. All right reserved. </p>
+			            <p> 
+			            	<ul>
+			            		<li>A M LOHIT</li>
+			            		<li>HAASHITHA P</li>
+			            		<li>ANIL KUMAR</li>
+			            		<li>ISHITA ROY</li>
+			            	</ul>
+			            </p>
+			        </div>
+			    </div>
+			</footer>
+		</div>
 	</body> 
 </html>
