@@ -7,123 +7,117 @@
 		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>	
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/static/css/background.css">
 		
 		<style type="text/css">
 
 			body {
-				padding-top: 160px;
-				background-color: rgba(0, 0, 0, 0.8);
+				background-image: url(/static/images/ec-wallpaper.jpg);
 			}
 
-			.semi-transparent-button {
-				position: relative;
-				top: 300px;
-				left: 6px; 
-				font-size: 30px;
-				font-family: anivers;
-				display: block;
-				box-sizing: border-box;
-				margin: 0 auto;
-				padding: 8px;
-				max-width: 350px;
-				background: #fff; /* fallback color for old browsers */
-				background: rgba(255, 255, 255, 0.5);
-				border-radius: 8px;
-				color: rgb( 20, 20, 20);
-				text-align: center;
-				text-decoration: none;
-				letter-spacing: 1px;
-				transition: all 0.3s ease-out;
+			.mbody {
+				padding-top: 10vh;
 			}
 
-			.alert_msg_div {
-				width: 500px;
-				height: 250px;
-				border: solid 1px white;
-				border-radius: 4px;
-				background-color: rgba(200,200,200,0.9);
+			.header {
+				height: 25vh;
 			}
 
-			.msg_body {
-				font-family: Times, serif;
-				font-size: 22px;
-
-			}
 		</style>
 	</head>
-	<body> 
-		<center>
-			<div class="alert_msg_div">
-				<div style="background-color: white; width: 500px; height: 40px; font-family: Times, serif; font-size: 30px;"><strong>ALERT MESSAGE</strong></div>
-
-				<div class="msg_body">
-					{% if voted_now %}
-						<div class="alert alert-success">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if sensor_ni %}
-						<div class="alert alert-info">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if invalid_voter %}
-						<div class="alert alert-info">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if has_voted %}
-						<div class="alert alert-danger">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if voter_present %}
-						<div class="alert alert-info">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if finger_not_matched %}
-						<div class="alert alert-info">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if enroll_failed %}
-						<div class="alert alert-success">
-							{{ msg }}
-						</div>
-					{% endif %}
-
-					{% if stored %}
-						<div class="alert alert-success">
-							{{ msg }}
-						</div>
-					{% endif %}
-				</div>
-
+	<body>
+		<div class="header">
+			<div id="logo">
+				<img src="/static/images/nitte-logo.png">
+				<img src="/static/images/nmit.png" class="pull-right">
 			</div>
-		</center>
-		<div>
-			<footer style="position: absolute; bottom: 0;">
-			    <div class="footer-bottom">
-			        <div class="container-fluid">
-			            <p class="pull-right"> Copyright © Smart EVM Team. All right reserved. </p>
-			            <p> 
-			            	<ul>
-			            		<li>A M LOHIT</li>
-			            		<li>HAASHITHA P</li>
-			            		<li>ANIL KUMAR</li>
-			            		<li>ISHITA ROY</li>
-			            	</ul>
-			            </p>
-			        </div>
-			    </div>
-			</footer>
+			<nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+			  	<ul class="nav nav-pills pull-left">
+			  		<li role="navigation"><a href=" ">EC</a></li>
+			  	</ul>
+			  	<ul class="nav nav-pills pull-right"> 
+			  		<li role="navigation"><a href="authentication">Authentication</a></li>
+			  		<li role="navigation"><a href="enrollment">Enrollment</a></li>
+			  		<li role="navigation"><a href="about">About</a></li>
+			  		<li role="navigation"><a href="contact">Contact</a></li>
+			  	</ul>
+			  </div>
+			</nav>
 		</div>
+		<div class="mbody">
+			<center>
+				<div class="alert_msg_div">
+					<div class="alert_msg_header"><strong>ALERT MESSAGE</strong></div>
+
+					<div class="alert_msg_body">
+						{% if voted_now %}
+							<div class="alert alert-success">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if sensor_ni %}
+							<div class="alert alert-info">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if invalid_voter %}
+							<div class="alert alert-info">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if has_voted %}
+							<div class="alert alert-danger">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if voter_present %}
+							<div class="alert alert-info">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if finger_not_matched %}
+							<div class="alert alert-info">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if enroll_failed %}
+							<div class="alert alert-success">
+								{{ msg }}
+							</div>
+						{% endif %}
+
+						{% if stored %}
+							<div class="alert alert-success">
+								{{ msg }}
+							</div>
+						{% endif %}
+					</div>
+
+				</div>
+			</center>
+		</div>
+		<footer>
+		    <div class="footer-bottom">
+		        <div class="container-fluid">
+		            <p class="pull-right"> Copyright © Smart EVM Team. All right reserved. </p>
+		            <p>Under the guidance of <strong> Dr. Thippeswamy M N </strong> (HoD)</p>
+		            <p> 
+		            	<ul>
+		            		<li>A M LOHIT</li>
+		            		<li>HAASHITHA P</li>
+		            		<li>ANIL KUMAR</li>
+		            		<li>ISHITA ROY</li>
+		            	</ul>
+		            </p>
+		        </div>
+		    </div>
+		</footer>
 	</body> 
 </html>

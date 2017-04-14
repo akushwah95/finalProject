@@ -13,104 +13,73 @@
 
 	<style type="text/css">
 
-		.contact {
-			padding-top: 2px;
-			width: 500px;
-			height: 400px;
-			position: relative;
-			top: 55px;
-			border: solid 2px rgba(255, 255, 255, 0.5);
-		}
-
-		.contact_header {
-			font-family: Times, serif; 
-			font-size: 40px;
-			color: black;
-			font-weight: bolder;
-		}
-
 		input {
 			color: black;
 		}
 
-		.semi-transparent-button {
-			position: relative;
-			top: 15px; 
-			font-size: 30px;
-			font-family: anivers;
-			display: block;
-			box-sizing: border-box;
-			margin: 0 auto;
-			padding: 8px;
-			max-width: 350px;
-			background: #fff; /* fallback color for old browsers */
-			background: rgba(255, 255, 255, 0.5);
-			border-radius: 8px;
-			color: rgb( 50, 50, 50);
-			text-align: center;
-			text-decoration: none;
-			letter-spacing: 1px;
-			transition: all 0.3s ease-out;
+		.mbody {
+			padding-top: 5vh;
 		}
 
-		.footer-bottom {
-			position: absolute;
-			bottom: 0;
-		}
 	</style>
 </head>
-<body style="background-color: #f6f6f6">
+<body>
 	<div class="header">
+		<div id="logo">
+			<img src="/static/images/nitte-logo.png">
+			<img src="/static/images/nmit.png" class="pull-right">
+		</div>
 		<nav class="navbar navbar-inverse">
-		  <div class="container-fluid">
-		  	<ul class="nav nav-pills pull-left">
-		  		<li role="navigation"><a href=" ">EC</a></li>
-		  	</ul>
-		  	<ul class="nav nav-pills pull-right"> 
-		  		<li role="navigation"><a href="authentication">Authentication</a></li>
-		  		<li role="navigation"><a href="enrollment">Enrollment</a></li>
-		  		<li role="navigation"><a href="about">About</a></li>
-		  		<li role="navigation"><a href="contact">Contact</a></li>
-		  	</ul>
-		  </div>
+			<div class="container-fluid">
+			  	<ul class="nav nav-pills pull-left">
+			  		<li role="navigation"><a href=" ">EC</a></li>
+			  	</ul>
+			  	<ul class="nav nav-pills pull-right"> 
+			  		<li role="navigation"><a href="authentication">Authentication</a></li>
+			  		<li role="navigation"><a href="enrollment">Enrollment</a></li>
+			  		<li role="navigation"><a href="about">About</a></li>
+			  		<li role="navigation"><a href="contact">Contact</a></li>
+			  	</ul>
+			</div>
 		</nav>
 	</div>
-	<center>
-		<div class="contact">
-			<div class="contact_header">
-				<center>Enter</center>
-				Contact Information
-			</div>
-			<div class="contact_body">
-				<form method="post" name="contact" action="#">
+	<div class="mbody">
+		<center>
+			<div class="contact">
+				<div class="contact_header">
+					<center>Enter</center>
+					Contact Information
+				</div>
+				<div class="contact_body">
+					<form method="post" name="contact" action="#">
 
-		            <input type="text" id="author" placeholder="author" /> <br><br>
-		        
-		            <input type="text" id="email" placeholder="email" /> <br><br>
-		        
-		            <input type="text" id="subject" placeholder="subject" /> <br><br>
-		        
-		            <button class="semi-transparent-button">SUBMIT</button>
-		        </form>
+			            <input type="text" id="author" placeholder="author" /> <br><br>
+			        
+			            <input type="text" id="email" placeholder="email" /> <br><br>
+			        
+			            <input type="text" id="subject" placeholder="subject" /> <br><br>
+			        
+			            <button class="semi-transparent-button">SUBMIT</button>
+			        </form>
+				</div>
 			</div>
-		</div>
-	</center>
-	<div>
-		<footer>
-		    <div class="footer-bottom">
-		        <div class="container-fluid">
-		            <p class="pull-right"> Copyright © Smart EVM Team. All right reserved. </p>
-		            <p> 
-		            	<ul>
-		            		<li>A M LOHIT</li>
-		            		<li>HAASHITHA P</li>
-		            		<li>ANIL KUMAR</li>
-		            		<li>ISHITA ROY</li>
-		            	</ul>
-		            </p>
-		        </div>
-		    </div>
-		</footer>
+		</center>
 	</div>
+	<footer>
+	    <div class="footer-bottom">
+	        <div class="container-fluid">
+	            <p class="pull-right"> Copyright © Smart EVM Team. All right reserved. </p>
+	            <p>Under the guidance of <strong> Dr. Thippeswamy M N </strong> (HoD)</p>
+	            <p> 
+	            	<ul>
+	            		<li>A M LOHIT</li>
+	            		<li>HAASHITHA P</li>
+	            		<li>ANIL KUMAR</li>
+	            		<li>ISHITA ROY</li>
+	            	</ul>
+	            </p>
+	        </div>
+	    </div>
+	</footer>
 </body>
 </html>

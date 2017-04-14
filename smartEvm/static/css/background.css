@@ -1,0 +1,172 @@
+body {
+	background: -moz-linear-gradient(bottom right, rgb(63, 53, 43), rgb(92, 92, 92), rgb(106, 93, 77));
+	background: -webkit-linear-gradient(bottom right, rgb(63, 53, 43), rgb(92, 92, 92), rgb(106, 93, 77));
+}
+
+.header {
+	width: 100%;
+	height: 14vh;
+	background-color: black;
+	background: rgba(122, 122, 122, 0.5);
+}
+
+.mbody {
+	width: 100%;
+	height: 68vh;
+}
+
+.footer-bottom {
+	width: 100%;
+	height: 20vh;
+	color: white;
+	background: rgba( 0, 0, 0, 0.8);
+	font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+}
+
+a {
+	font-size: 20px;
+	color: #fff;
+}
+
+.semi-transparent-button {
+	font-size: 30px;
+	font-family: "Times New Roman", Times, serif;
+	display: block;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 8px;
+	background: #fff; /* fallback color for old browsers */
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 8px;
+	color: rgb( 20, 20, 20);
+	text-align: center;
+	text-decoration: none;
+	letter-spacing: 1px;
+	transition: all 0.3s ease-out;
+}
+
+/* Portals CSS code section */
+#a_header {
+	height: 10vh; 
+	background-color: rgba(0, 0, 0, 0.8); 
+	font-family: Times, serif; 
+	color: white; 
+	font-size: 30px; 
+	border: solid 1px white; 
+	border-radius: 4px;
+}
+
+#a_body {
+	height: 50vh; 
+	border: solid 2px white; 
+	border-radius: 4px;
+}
+
+/* Enroll.html CSS code section*/
+#enroll_portal_header {
+	height: 8vh; 
+	background-color: rgba(0, 0, 0, 0.8); 
+	font-family: "Times New Roman", Times, serif; 
+	color: white; 
+	font-size: 30px; 
+	border: solid 1px white; 
+	border-radius: 4px;
+}
+
+#enroll_portal_body {
+	padding-top: 5vh;
+	height: 35vw; 
+	border: solid 2px white; 
+	border-radius: 4px;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 22px;
+	color: white;
+}
+
+/* Confirmation.html CSS code section */
+.alert_msg_div {
+	width: 36vw;
+	border: solid 1px white;
+	border-radius: 4px;
+	background-color: rgba(200,200,200,0.9);
+}
+
+.alert_msg_header {
+	background-color: white; 
+	width: 36vw; 
+	height: 8vh; 
+	font-family: "Times New Roman", Times, serif; 
+	font-size: 30px;
+}
+
+.alert_msg_body {
+	font-family: "Times New Roman",Times, serif;
+	font-size: 30px;
+	height: 30vh;
+}
+
+.alert {
+	padding-top: 8vh;
+	height: 30vh;
+}
+
+/* Vote.hmtl css code section */
+#fetch_details {
+	width: 42.5vw;
+	height: 60vh;
+	border: solid 2px white; 
+	border-radius: 4px;
+	font-family: Times, serif;
+	font-size: 22px;
+	color: white;
+	float: left;
+
+}
+
+#fetch_details input {
+	float: right;
+	width: 28vw;
+	height: 30px;
+	text-align: center;
+	color: black;
+}
+
+#voting_body {
+	width: 42.5vw;
+	height: 60vh;
+	border: solid 2px white; 
+	border-radius: 4px;
+	font-family: Times, serif;
+	font-size: 22px;
+	color: white;
+	float: right;
+}
+
+#fetch_details_header {
+	height: 8vh;
+	background-color: rgba(0, 0, 0, 0.8); 
+	font-family: Times, serif; 
+	color: white; 
+	font-size: 30px; 
+	border: solid 1px white; 
+	border-radius: 4px;
+}
+
+#fetch_details_body {
+	padding-top: 22px;
+}
+
+#voting_body_details {
+	padding-top: 22px;
+}
+
+#voting_body_header {
+	height: 8vh; 
+	background-color: rgba(0, 0, 0, 0.8); 
+	font-family: Times, serif; 
+	color: white; 
+	font-size: 30px; 
+	border: solid 1px white; 
+	border-radius: 4px;
+}
