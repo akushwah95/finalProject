@@ -48,7 +48,7 @@ a {
 
 .semi-transparent-button {
 	width: 30vh;
-	font-size: 30px;
+	font-size: 30em;
 	font-family: "Times New Roman", Times, serif;
 	display: block;
 	box-sizing: border-box;
@@ -60,9 +60,10 @@ a {
 	color: rgb( 20, 20, 20);
 	text-align: center;
 	text-decoration: none;
-	letter-spacing: 1px;
+	letter-spacing: 1em;
 	transition: all 0.3s ease-out;
 }
+
 
 .contact {
 	padding-top: 1vh;

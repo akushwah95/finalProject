@@ -6,7 +6,7 @@ class User(models.Model):
 	voter_id = models.IntegerField(unique = True)
 	name = models.CharField(max_length = 40)
 	age = models.IntegerField()
-	hashes = models.CharField(max_length = 64, unique = True)
+	hashes = models.CharField(max_length = 2700, unique = True)
 	father_name = models.CharField(max_length = 40)
 	mother_name = models.CharField(max_length = 40)
 	mobile_number = models.CharField(max_length = 10)
@@ -15,7 +15,7 @@ class User(models.Model):
 		return self.hashes
 		
 class Vote(models.Model):
-	hashes = models.CharField(max_length = 64, unique = True)
+	hashes = models.CharField(max_length = 2700, unique = True)
 	party_name = models.CharField(max_length = 30)
 	
 	def __str__(self):

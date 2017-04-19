@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import base64
 import hashlib
+import json
 import time
+import ast
+from logging import info
+from delete_all import delete_all_templates
+from django.contrib import messages
 from django.shortcuts import render
 from django.template import RequestContext
-from models import User, Vote
+from models import User, Vote, Party_name
 from forms import VoteForm
 
 from pyfingerprint.pyfingerprint import PyFingerprint
@@ -62,54 +68,44 @@ def auth(request):
 			pass
 		
 		f.convertImage(0x01)
-		
-		result = f.searchTemplate()
-		
-		positionNumber = result[0]
-		accuracyScore = result[1]
-		
-		if ( positionNumber == -1 ):
-			return render(request, 'confirmation.html', {'invalid_voter': True, 'msg': 'Voter data not present in the database'} )		
-			
-		f.loadTemplate(positionNumber, 0x01)
-		
+
+		#if ( positionNumber == -1 ):
+			#return render(request, 'confirmation.html', {'invalid_voter': True, 'msg': 'Voter data not present in the database'} )
+
 		characterics = str(f.downloadCharacteristics(0x01))
-		
-		hashVal = hashlib.sha256(characterics).hexdigest()
-		
+		all_obj = User.objects.all()
+		for obj in all_obj:
+			print "Object", obj.name
+			string_key = base64.b64decode(obj.hashes)
+			chara = json.loads(string_key)
+			chara=ast.literal_eval(chara)
+			cc=f.uploadCharacteristics(0x02, chara)
+			if f.compareCharacteristics() != 0:
+				print "Kya Baaaat!!!!!!!!!!!!!!!!!!!!"
+				'''string_key = json.dumps(characterics)
+				hashVal = base64.b64encode(string_key)
+				print hashVal
+				string_key = json.dumps(chara)
+				hashVal = base64.b64encode(string_key)
+				print hashVal'''
+				delete_all_templates()
+				try:
+					vote_obj = Vote.objects.get(hashes=obj.hashes)
+					if vote_obj:
+						return render(request, 'confirmation.html', {'has_voted': True,
+																 'msg': 'Sorry %s , You have already voted to %s' % (
+																 obj.name, vote_obj.party_name)})
+				except ObjectDoesNotExist as first_time:
+					print "Valid Voter + %s" % first_time
+					return render(request, 'vote.html', {'object': obj, 'party_names':get_party_names()})
+
+		return render(request, 'confirmation.html',
+							  {'invalid_voter': True, 'msg': 'Voter Data Not Present in the Database'})
+
 	except Exception as e:
+		print e
 		return render(request, 'confirmation.html', { 'sensor_ni' : True, 'msg': 'Unable to process your fingerprint. Please Try again.'} )
-	
-	print "hashVal :- " + hashVal
-	all_obj = User.objects.all()
-	
-	print "all objects :- "
-	for obj in all_obj:
-		print obj.name 
-		print obj.age 
-		print obj.voter_id 
-		print obj.hashes
-		print type(obj.hashes)
-	print type(hashVal)
-	temp = unicode(hashVal)
-	print temp
-	print type(unicode(hashVal))
-	
-	try:
-		obj = User.objects.get(hashes = temp)
-		
-	except ObjectDoesNotExist as invalid_user:
-		return render(request, 'confirmation.html', {'invalid_voter': True, 'msg': 'Voter Data Not Present in the Database'} )
-	
-	try:
-		vote_obj = Vote.objects.get(hashes = temp)
-		
-		if vote_obj :
-			return render(request, 'confirmation.html', { 'has_voted': True, 'msg': 'Sorry %s , You have already voted to %s' % (obj.name, vote_obj.party_name)} )
-	
-	except ObjectDoesNotExist as valid_voter:
-		print "Valid Voter"
-		return render(request, 'vote.html', {'object': obj} )
+
 
 #initiate sensor for enrollment
 def pre_enroll(request):
@@ -123,7 +119,6 @@ def pre_enroll(request):
 
 	## Tries to enroll new finger
 	try:
-		print('Waiting for finger...')
 
 		## Wait that finger is read
 		while ( f.readImage() == False ):
@@ -134,15 +129,16 @@ def pre_enroll(request):
 
 		## Checks if finger is already enrolled
 		result = f.searchTemplate()
-		positionNumber = result[0]
-		characterics = str(f.downloadCharacteristics(0x01))
-		hashes = hashlib.sha256(characterics).hexdigest()
-		
-		if ( positionNumber >= 0 ):
-			print('Template already exists at position #' + str(positionNumber))
-			obj = User.objects.get(hashes = unicode(hashes))
-			return render(request, 'confirmation.html', {'voter_present': True, 'msg': '%s Voter already enrolled in the database.' % obj.name} )
-		
+		all_obj = User.objects.all()
+		for obj in all_obj:
+			print "Object", obj.name
+			string_key = base64.b64decode(obj.hashes)
+			chara = json.loads(string_key)
+			chara = ast.literal_eval(chara)
+			cc = f.uploadCharacteristics(0x02, chara)
+			if f.compareCharacteristics() != 0:
+				return render(request, 'confirmation.html', {'voter_present': True, 'msg': 'Voter %s already enrolled in the database.' % obj.name} )
+
 		print('Remove finger...')
 		time.sleep(2)
 
@@ -156,9 +152,12 @@ def pre_enroll(request):
 		if f.compareCharacteristics() != 0:
 			f.createTemplate()
 			characterics = str(f.downloadCharacteristics(0x01))
-			hashes = hashlib.sha256(characterics).hexdigest()
+			print characterics
+			string_key = json.dumps(characterics)
+			hashes = base64.b64encode(string_key)
 			positionNumber = f.storeTemplate()
 			print('New template position #' + str(positionNumber))
+			delete_all_templates()
 			return render(request, 'enroll.html', {'hashes': hashes} )
 		else:
 			return render(request, 'confirmation.html', {'finger_not_matched': True, 'msg': 'Fingerprint not matched. Please try again.'} )
@@ -176,8 +175,15 @@ def enroll(request):
 	mother_name = request.POST.get('mother_name','')
 	mobile_number = request.POST.get('mobile_number','')
 	hashes = request.POST.get('hashes','')
-
-	obj = User(voter_id=voter_id, name=name , age=age , father_name=father_name, mother_name=mother_name, mobile_number=mobile_number, 					hashes=hashes)
+	all_obj = User.objects.all()
+	for obj in all_obj:
+		if int(voter_id)==obj.voter_id:
+			print ("Errorrrr!!!!!!!!!!!")
+	obj = User(voter_id=voter_id, name=name , age=age , father_name=father_name, mother_name=mother_name, mobile_number=mobile_number,hashes=hashes)
 	obj.save()
 	
 	return render(request, 'confirmation.html', {'stored': True, 'msg': 'Voter Data Stored in the Database'} )	
+
+def get_party_names():
+    parties = Party_name.objects.all()
+    return parties
